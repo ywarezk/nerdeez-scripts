@@ -3,6 +3,7 @@
 
 common bash scripts
 make sure you chmod the scripts to be executables
+
 ```sudo chmod +x {NAME_OF_SCRIPT}```
 
 ## killport
