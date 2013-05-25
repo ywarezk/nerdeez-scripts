@@ -3,7 +3,7 @@
 
 common bash scripts
 make sure you chmod the scripts to be executables
-sudo chmod +x {NAME_OF_SCRIPT}
+```sudo chmod +x {NAME_OF_SCRIPT}```
 
 ## killport
 
@@ -13,5 +13,5 @@ usefull when we runserver on eclipse somtime the port is not freed
 
 #### Usage
 
-./killport {#PORT_NUMBER}
+```./killport {#PORT_NUMBER}```
 
