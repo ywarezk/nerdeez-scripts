@@ -6,7 +6,11 @@
 main(){
 	local port=$1; shift
 	pid=`lsof -P | grep :$port | awk '{print $2}'`
-	`sudo kill $pid`
+	if [ $pid ]; then
+		`sudo kill $pid`
+	else
+		echo 'you didnt put a port'
+	fi
 }
 
 main $*
