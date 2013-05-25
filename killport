@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# used to kill the program that is blocking my port
+# user will put a port number and we will kill it
+# $1 - port to kill
+main(){
+	local port=$1; shift
+	pid=`lsof -P | grep :$port | awk '{print $2}'`
+	`sudo kill $pid`
+}
+
+main $*
+
+
