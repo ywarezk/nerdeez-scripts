@@ -23,8 +23,8 @@ main(){
         case $answer in  
                 y|Y) pip install gunicorn; 
         esac
-	read -p "Yo bitch, Care to install dj-database-url?? (y/n)" answer
-        case $answer in  
+	read -p "Yo bitch, Care to install dj-database-url?? (y/n)" answer_dj
+        case $answer_dj in  
                 y|Y) pip install dj-database-url; 
         esac
 	echo "Creating the django project (${project_name_app})"
@@ -32,6 +32,29 @@ main(){
 	echo 'Yo asshole, gonna create the Procfile'
 	touch Procfile
 	echo 'web: python manage.py run_gunicorn -b "0.0.0.0:$PORT"' >> Procfile
+
+	case $answer_dj in
+                y|Y) 
+			echo 'Appending extra configuration to the settings file'
+        		echo -e '\n' >> ${project_name}_app/settings.py
+        		echo  '# Parse database configuration from $DATABASE_URL' >> ${project_name}_app/settings.py
+        		echo  'import dj_database_url' >> ${project_name}_app/settings.py
+        		echo  "DATABASES['default'] =  dj_database_url.config()" >> ${project_name}_app/settings.py
+        		echo -e '\n' >> ${project_name}_app/settings.py
+        		echo "# Honor the 'X-Forwarded-Proto' header for request.is_secure()" >> ${project_name}_app/settings.py
+        		echo "SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')" >> ${project_name}_app/settings.py
+        esac
+	echo 'Creating git ignore file'
+	touch .gitignore
+	echo 'venv' >> .gitignore
+	echo '*.pyc' >> .gitignore
+	echo 'Creating a new git repository'
+	git init
+	git add .
+	git commit -m "init django app"
+	
+
+
 }
 
 main $*
