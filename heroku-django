@@ -20,13 +20,13 @@ main(){
   		y|Y) pip install psycopg2; 
 	esac
 	read -p "Yo bitch, Care to install gunicorn?? (y/n)" answer
-        case $answer in  
-                y|Y) pip install gunicorn; 
-        esac
+    case $answer in  
+            y|Y) pip install gunicorn; 
+    esac
 	read -p "Yo bitch, Care to install dj-database-url?? (y/n)" answer_dj
-        case $answer_dj in  
-                y|Y) pip install dj-database-url; 
-        esac
+    case $answer_dj in  
+            y|Y) pip install dj-database-url; 
+    esac
 	echo "Creating the django project (${project_name_app})"
 	`django-admin.py startproject ${project_name}_app .`
 	echo 'Yo asshole, gonna create the Procfile'
@@ -52,6 +52,16 @@ main(){
 	git init
 	git add .
 	git commit -m "init django app"
+	echo 'Creating requirments file'
+	pip freeze > requirments.txt
+	read -p "Would you like to create a local database" answer
+	case $answer in  
+            y|Y) 
+				read -p "Please enter your postgres username:" postgres_username
+				read -p "Please enter your postgres password:" postgres_password
+				
+
+    esac
 	
 
 
