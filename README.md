@@ -16,3 +16,10 @@ usefull when we runserver on eclipse somtime the port is not freed
 
 ```./killport {#PORT_NUMBER}```
 
+## install-compass
+
+install compass using ruby and rubygems
+
+#### Usage
+
+```./install-compass```
