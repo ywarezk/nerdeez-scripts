@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#this script is used to install compass
+#requires ruby and rubygems
+main(){
+	sudo gem update --system
+	sudo gem install compass	
+}
+
+main $*
+
