@@ -54,14 +54,26 @@ main(){
 	git commit -m "init django app"
 	echo 'Creating requirments file'
 	pip freeze > requirments.txt
+
+	#Gal: Lesson2 - finish creation of local postgres database 
 	read -p "Would you like to create a local database" answer
 	case $answer in  
             y|Y) 
 				read -p "Please enter your postgres username:" postgres_username
 				read -p "Please enter your postgres password:" postgres_password
-				
-
     esac
+
+    #Gal: Lesson2 - create enviroment varialbe in virtual env called DATABASE_URL
+
+    #Gal: Lesson2 - run sync db to create the tables in the local database
+
+    #Gal: Lesson3 - would you like to add admin interface to you project?
+
+    #Gal: Lesson3 - would you like to install south? + add south init
+
+    #Gal: Lesson4 - would you like to install tastypie?
+
+
 	
 
 
