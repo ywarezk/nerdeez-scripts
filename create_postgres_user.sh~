@@ -4,7 +4,7 @@
 # $1 postgres_username
 # $2 postgres_password
 
-main() {
+main(){
 	local postgres_username=$1
 	local postgres_password=$2
 	echo "Creating postgres user ${postgres_username}"
