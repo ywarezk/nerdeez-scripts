@@ -16,20 +16,18 @@ usefull when we runserver on eclipse somtime the port is not freed
 
 ```./killport {#PORT_NUMBER}```
 
+## create_postgres_user
+
+create a new user for postgres login information
+
+#### Usage
+
+```./create_postgres_user {USERNAME} {PASSWORD}```
+
 ## install-compass
 
 install compass using ruby and rubygems
 
 #### Usage
 
-```./install-compass```
-
-## create_postgres_user
-
-creates a user for postgres (will be used for login information)
-
-#### Usage
-
-```./create_postgres_user <username> <password>```
-
-
+```./install-compass ```
