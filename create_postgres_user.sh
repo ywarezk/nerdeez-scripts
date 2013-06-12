@@ -8,7 +8,6 @@ main() {
 	local postgres_username=$1
 	local postgres_password=$2
 	echo "Creating postgres user ${postgres_username}"
-	sudo -u postgres psql
 	echo "CREATE USER ${postgres_username} WITH PASSWORD '${postgres_password}';" | sudo -u postgres psql 
 }
 
