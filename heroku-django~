@@ -6,6 +6,7 @@
 # $1 project name
 main(){
 	local project_name=$1
+	project_name=`echo $project_name | tr "-" _`
 	echo "Creating project folder bitch (${project_name})"
 	mkdir ${project_name}
 	cd ${project_name}
@@ -70,6 +71,8 @@ main(){
 	# setting environment variable of DATABASE_URL
 	echo setting environment variable of DATABASE_URL
 	export DATABASE_URL=postgres://${postgres_username}:${postgres_password}localhost:5432/${postgres_database_name}
+	# run syncdb locally	
+	python manage.py syncdb
 
     #Gal: Lesson2 - run sync db to create the tables in the local database
 
@@ -81,13 +84,5 @@ main(){
 
 }
 
-gil (){
-	#local project_name=$1
-	#echo "hello world man" | tr " " .
-	local project_name=$1
-	project_name=`echo $project_name | tr "-" _`
-	echo $project_name
-}
-
-gil $*
+main $*
 
