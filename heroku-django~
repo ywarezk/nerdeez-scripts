@@ -6,7 +6,6 @@
 # $1 project name
 main(){
 	local project_name=$1
-	project_name=`echo $project_name | tr "-" _`
 	echo "Creating project folder bitch (${project_name})"
 	mkdir ${project_name}
 	cd ${project_name}
@@ -82,5 +81,13 @@ main(){
 
 }
 
-main $*
+gil (){
+	#local project_name=$1
+	#echo "hello world man" | tr " " .
+	local project_name=$1
+	project_name=`echo $project_name | tr "-" _`
+	echo $project_name
+}
+
+gil $*
 
