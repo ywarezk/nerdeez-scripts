@@ -71,9 +71,10 @@ main(){
 	# setting environment variable of DATABASE_URL
 	echo setting environment variable of DATABASE_URL
 	export DATABASE_URL=postgres://${postgres_username}:${postgres_password}localhost:5432/${postgres_database_name}
+	# run syncdb locally	
+	python manage.py syncdb
 
     #Gal: Lesson2 - run sync db to create the tables in the local database
-	python manage.py syncdb
 
     #Gal: Lesson3 - would you like to add admin interface to you project?
 
