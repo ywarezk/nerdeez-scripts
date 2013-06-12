@@ -24,7 +24,6 @@ install compass using ruby and rubygems
 
 ```./install-compass```
 
-
 ## create_postgres_user
 
 creates a user for postgres (will be used for login information)
