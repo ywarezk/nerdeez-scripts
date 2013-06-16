@@ -62,18 +62,20 @@ main(){
             y|Y) 
 				read -p "Please enter your postgres username:" postgres_username
 				read -p "Please enter your postgres password:" postgres_password
-    esac
+				# create db named : {projectName}_db
+				local postgres_database_name=${project_name}_db
+       			        echo "CREATE DATABASE ${postgres_database_name};" | sudo -u postgres psql 
+				# setting environment variable of DATABASE_URL
+				echo setting environment variable of DATABASE_URL
+				export DATABASE_URL=postgresql://${postgres_username}:${postgres_password}@localhost:5432/${postgres_database_name} 
+
+    	#Gal: Lesson2 - run sync db to create the tables in the local database
+	python manage.py syncdb
+    	esac
 
     #Gal: Lesson2 - create enviroment varialbe in virtual env called DATABASE_URL
 
-	read -p "Please enter your database name:" postgres_database_name
-        echo "CREATE DATABASE ${postgres_database_name};" | sudo -u postgres psql 
-	# setting environment variable of DATABASE_URL
-	echo setting environment variable of DATABASE_URL
-	export DATABASE_URL=postgres://${postgres_username}:${postgres_password}localhost:5432/${postgres_database_name}
 
-    #Gal: Lesson2 - run sync db to create the tables in the local database
-	python manage.py syncdb
 
     #Gal: Lesson3 - would you like to add admin interface to you project?
 

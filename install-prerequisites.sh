@@ -13,6 +13,21 @@ main{}{
 
 	#install heroku toolbelt
 	wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+
+	#install postgresql 9.1
+	sudo apt-get install postgresql-9.1
+	sudo apt-get install postgresql-client-9.1
+	sudo apt-get install postgresql-contrib-9.1
+	sudo apt-get install libpq-dev
+	sudo apt-get install postgresql-server-dev-9.1
+	sudo apt-get install pgadmin3
+
+	#install python-dev
+	sudo apt-get install python-dev
+
+	#install build-essential
+	sudo apt-get install build-essential
+	
 	
 }
 
