@@ -13,7 +13,9 @@ main{}{
 
 	#install heroku toolbelt
 	wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-	
+
+	#install postgres
+	sudo apt-get install postgresql-client	
 }
 
 main $*
