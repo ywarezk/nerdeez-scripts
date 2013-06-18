@@ -9,7 +9,22 @@ change_herokuapp_name(){
 	then 
 		heroku_name=$answer
 	fi
-	`heroku apps:rename ${heroku_name}`
+	heroku apps:rename ${heroku_name}
+}
+
+#will install south, add what's necessary to the settings file and init south
+install_south(){
+	local project_name=$1
+	project_name=`echo $project_name | tr "-" _`
+	read -p "would you like to install south? (y/n)" answer
+	case $answer in  
+  		y|Y) 
+	  		pip install South;
+	  		echo "INSTALLED_APPS = INSTALLED_APPS + ('south',)" >> ${project_name}_app/settings.py
+	  		python manage.py syncdb
+	  		python manage.py schemamigration ${project_name}_app --initial
+	  		python manage.py migrate ${project_name}_app
+	esac
 }
 
 # used to create django heroku project.
@@ -73,6 +88,9 @@ main(){
 	git commit -m "init django app"
 	echo 'Creating requirments file'
 	pip freeze > requirments.txt
+	
+	echo 'creating heroku app'
+	heroku create
 
 	#Gal: Lesson2 - finish creation of local postgres database 
 	read -p "Would you like to create a local database (y/n)" answer
@@ -94,19 +112,20 @@ main(){
     	#changing the name of the heroku app
     	change_herokuapp_name $project_name_untouched
     	
-    	#install south
-    	read -p "redneck, do you need south? (y/n)" answer
-    	case $answer in  
-            y|Y)
-	            pip install South
-    esac
+    	echo 'adding our app to the settings'
+    	echo "INSTALLED_APPS = INSTALLED_APPS + ('${project_name}_app',)" >> ${project_name}_app/settings.py
+    	
+    	echo 'creating models file'
+    	touch ${project_name}_app/models.py
+    	
+    	install_south $project_name_untouched
     
     #install tastypie
-    read -p "how bout tastypie? (y/n)" answer
-    	case $answer in  
-            y|Y)
-	            pip install django-tastypie
-    esac
+    #read -p "how bout tastypie? (y/n)" answer
+    	#case $answer in  
+    #        y|Y)
+	#            pip install django-tastypie
+    #esac
     	
 
     #Gal: Lesson2 - create enviroment varialbe in virtual env called DATABASE_URL
@@ -122,6 +141,8 @@ main(){
 }
 
 main $*
+
+#install_south $*
 
 
 
