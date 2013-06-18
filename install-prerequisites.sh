@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #this script will install applications needed for our apps in ubuntu
-main{}{
+main(){
 	#install git
 	sudo apt-get install git
 
@@ -27,7 +27,10 @@ main{}{
 
 	#install build-essential
 	sudo apt-get install build-essential
-	
+
+	#install compass
+	sudo gem update --system
+	sudo gem install compass
 	
 }
 

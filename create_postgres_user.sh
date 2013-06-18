@@ -5,6 +5,11 @@
 # $2 postgres_password
 
 main() {
+	if (( $# != 2 ))
+	then
+	  echo "Please supply postgres username and password (only)"
+	  exit 1
+	fi
 	local postgres_username=$1
 	local postgres_password=$2
 	echo "Creating postgres user ${postgres_username}"
