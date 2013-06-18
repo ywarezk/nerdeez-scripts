@@ -5,6 +5,11 @@
 # the necessary files for the project
 # $1 project name
 main(){
+	if (( $# != 1 ))
+	then
+	  echo "Please supply project name (only)"
+	  exit 1
+	fi
 	local project_name=$1
 	project_name=`echo $project_name | tr "-" _`
 	echo "Creating project folder bitch (${project_name})"
@@ -57,7 +62,7 @@ main(){
 	pip freeze > requirments.txt
 
 	#Gal: Lesson2 - finish creation of local postgres database 
-	read -p "Would you like to create a local database" answer
+	read -p "Would you like to create a local database (y/n)" answer
 	case $answer in  
             y|Y) 
 				read -p "Please enter your postgres username:" postgres_username
