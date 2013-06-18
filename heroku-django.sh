@@ -1,5 +1,17 @@
 #!/bin/bash
 
+#will change the name of the heroku app
+change_herokuapp_name(){
+	local project_name_untouched=$1
+	local heroku_name="${project_name_untouched}-dev"
+	read -p "Wanker boy, what's the name of your heroku app (enter for ${heroku_name})" answer
+	if [ "$answer" != $"" ]
+	then 
+		heroku_name=$answer
+	fi
+	`heroku apps:rename ${heroku_name}`
+}
+
 # used to create django heroku project.
 # the script will prompt for the kind of project and will install
 # the necessary files for the project
@@ -11,10 +23,11 @@ main(){
 	  exit 1
 	fi
 	local project_name=$1
-	project_name=`echo $project_name | tr "-" _`
+	local project_name_untouched=$1
 	echo "Creating project folder bitch (${project_name})"
 	mkdir ${project_name}
 	cd ${project_name}
+	project_name=`echo $project_name | tr "-" _`
 	echo 'Creating the virtual enviroment bitch (venv)'
 	virtualenv venv --distribute
 	echo 'Activating the virtual enviroment bitch'
@@ -74,9 +87,27 @@ main(){
 				echo setting environment variable of DATABASE_URL
 				export DATABASE_URL=postgresql://${postgres_username}:${postgres_password}@localhost:5432/${postgres_database_name} 
 
-    	#Gal: Lesson2 - run sync db to create the tables in the local database
-	python manage.py syncdb
+			    	#Gal: Lesson2 - run sync db to create the tables in the local database
+				python manage.py syncdb
     	esac
+    	
+    	#changing the name of the heroku app
+    	change_herokuapp_name $project_name_untouched
+    	
+    	#install south
+    	read -p "redneck, do you need south? (y/n)" answer
+    	case $answer in  
+            y|Y)
+	            pip install South
+    esac
+    
+    #install tastypie
+    read -p "how bout tastypie? (y/n)" answer
+    	case $answer in  
+            y|Y)
+	            pip install django-tastypie
+    esac
+    	
 
     #Gal: Lesson2 - create enviroment varialbe in virtual env called DATABASE_URL
 
@@ -91,4 +122,6 @@ main(){
 }
 
 main $*
+
+
 
