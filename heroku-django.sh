@@ -26,6 +26,21 @@ install_south(){
 	  		python manage.py migrate ${project_name}_app
 	esac
 }
+http://www.cyberciti.biz/faq/delete-directory-command-in-terminal/
+#will install tastypie and add what's necessary to the settings file
+install_tastypie() {
+	local project_name=$1
+	project_name=`echo $project_name | tr "-" _`
+	read -p "would you like to install tastypie? (y/n)" answer
+	case $answer in  
+  		y|Y) 
+	  		pip install django-tastypie;
+	  		echo "INSTALLED_APPS = INSTALLED_APPS + ('tastypie',)" >> ${project_name}_app/settings.py
+	  		python manage.py syncdb
+			python manage.py migrate ${project_name}_app
+
+	esac
+}
 
 # used to create django heroku project.
 # the script will prompt for the kind of project and will install
@@ -119,13 +134,9 @@ main(){
     	touch ${project_name}_app/models.py
     	
     	install_south $project_name_untouched
+	install_tastypie $project_name_untouched
     
-    #install tastypie
-    #read -p "how bout tastypie? (y/n)" answer
-    	#case $answer in  
-    #        y|Y)
-	#            pip install django-tastypie
-    #esac
+
     	
 
     #Gal: Lesson2 - create enviroment varialbe in virtual env called DATABASE_URL
