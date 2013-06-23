@@ -71,7 +71,9 @@ main(){
 	read -p "Yo bitch, Care to install gunicorn?? (y/n)" answer
     	case $answer in  
 	    	y|Y) pip install gunicorn; 
+		echo "INSTALLED_APPS = INSTALLED_APPS + ('gunicron',)" >> ${project_name}_app/settings.py
     	esac
+
 	read -p "Yo bitch, Care to install dj-database-url?? (y/n)" answer_dj
     	case $answer_dj in  
             	y|Y) pip install dj-database-url; 
