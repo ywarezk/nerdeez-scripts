@@ -19,11 +19,11 @@ install_south(){
 	read -p "would you like to install south? (y/n)" answer
 	case $answer in  
   		y|Y) 
-	  		pip install South;
-	  		echo "INSTALLED_APPS = INSTALLED_APPS + ('south',)" >> ${project_name}_app/settings.py
-	  		python manage.py syncdb
-	  		python manage.py schemamigration ${project_name}_app --initial
-	  		python manage.py migrate ${project_name}_app
+  		pip install South;
+  		echo "INSTALLED_APPS = INSTALLED_APPS + ('south',)" >> ${project_name}_app/settings.py
+  		python manage.py syncdb
+  		python manage.py schemamigration ${project_name}_app --initial
+  		python manage.py migrate ${project_name}_app
 	esac
 }
 http://www.cyberciti.biz/faq/delete-directory-command-in-terminal/
@@ -34,11 +34,10 @@ install_tastypie() {
 	read -p "would you like to install tastypie? (y/n)" answer
 	case $answer in  
   		y|Y) 
-	  		pip install django-tastypie;
-	  		echo "INSTALLED_APPS = INSTALLED_APPS + ('tastypie',)" >> ${project_name}_app/settings.py
-	  		python manage.py syncdb
-			python manage.py migrate ${project_name}_app
-
+  		pip install django-tastypie;
+  		echo "INSTALLED_APPS = INSTALLED_APPS + ('tastypie',)" >> ${project_name}_app/settings.py
+  		python manage.py syncdb
+		python manage.py migrate ${project_name}_app
 	esac
 }
 
@@ -49,8 +48,8 @@ install_tastypie() {
 main(){
 	if (( $# != 1 ))
 	then
-	  echo "Please supply project name (only)"
-	  exit 1
+		echo "Please supply project name (only)"
+		exit 1
 	fi
 	local project_name=$1
 	local project_name_untouched=$1
@@ -66,11 +65,13 @@ main(){
 	pip install Django
 	read -p "Yo bitch, Care to install psycopg2?? (y/n)" answer
 	case $answer in  
-  		y|Y) pip install psycopg2; 
+  		y|Y) 
+		pip install psycopg2; 
 	esac
 	read -p "Yo bitch, Care to install gunicorn?? (y/n)" answer
     	case $answer in  
-	    	y|Y) pip install gunicorn; 
+	    	y|Y) 
+		pip install gunicorn; 
 		echo "INSTALLED_APPS = INSTALLED_APPS + ('gunicron',)" >> ${project_name}_app/settings.py
     	esac
 
@@ -86,14 +87,14 @@ main(){
 
 	case $answer_dj in
                 y|Y) 
-			echo 'Appending extra configuration to the settings file'
-        		echo -e '\n' >> ${project_name}_app/settings.py
-        		echo  '# Parse database configuration from $DATABASE_URL' >> ${project_name}_app/settings.py
-        		echo  'import dj_database_url' >> ${project_name}_app/settings.py
-        		echo  "DATABASES['default'] =  dj_database_url.config()" >> ${project_name}_app/settings.py
-        		echo -e '\n' >> ${project_name}_app/settings.py
-        		echo "# Honor the 'X-Forwarded-Proto' header for request.is_secure()" >> ${project_name}_app/settings.py
-        		echo "SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')" >> ${project_name}_app/settings.py
+		echo 'Appending extra configuration to the settings file'
+		echo -e '\n' >> ${project_name}_app/settings.py
+		echo  '# Parse database configuration from $DATABASE_URL' >> ${project_name}_app/settings.py
+		echo  'import dj_database_url' >> ${project_name}_app/settings.py
+		echo  "DATABASES['default'] =  dj_database_url.config()" >> ${project_name}_app/settings.py
+		echo -e '\n' >> ${project_name}_app/settings.py
+		echo "# Honor the 'X-Forwarded-Proto' header for request.is_secure()" >> ${project_name}_app/settings.py
+		echo "SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')" >> ${project_name}_app/settings.py
         esac
 	echo 'Creating git ignore file'
 	touch .gitignore
@@ -109,21 +110,22 @@ main(){
 	echo 'creating heroku app'
 	heroku create
 
-	#Gal: Lesson2 - finish creation of local postgres database 
+	# creation of local postgres database 
 	read -p "Would you like to create a local database (y/n)" answer
 	case $answer in  
-            y|Y) 
-				read -p "Please enter your postgres username:" postgres_username
-				read -p "Please enter your postgres password:" postgres_password
-				# create db named : {projectName}_db
-				local postgres_database_name=${project_name}_db
-       			        echo "CREATE DATABASE ${postgres_database_name};" | sudo -u postgres psql 
-				# setting environment variable of DATABASE_URL
-				echo setting environment variable of DATABASE_URL
-				export DATABASE_URL=postgresql://${postgres_username}:${postgres_password}@localhost:5432/${postgres_database_name} 
+    		y|Y) 
+		read -p "Please enter your postgres username:" postgres_username
+		read -p "Please enter your postgres password:" postgres_password
+		# create db named : {projectName}_db
+		local postgres_database_name=${project_name}_db
+	        echo "CREATE DATABASE ${postgres_database_name};" | sudo -u postgres psql 
+		# setting environment variable of DATABASE_URL
+		echo 'setting environment variable of DATABASE_URL'
+		export DATABASE_URL=postgresql://${postgres_username}:${postgres_password}@localhost:5432/${postgres_database_name} 
 
-			    	#Gal: Lesson2 - run sync db to create the tables in the local database
-				python manage.py syncdb
+	    	# run sync db to create the tables in the local database
+		echo 'syncing local database inorder to create the tables'
+		python manage.py syncdb
     	esac
     	
     	#changing the name of the heroku app
@@ -138,12 +140,7 @@ main(){
     	install_south $project_name_untouched
 	install_tastypie $project_name_untouched
     
-
-    	
-
     #Gal: Lesson2 - create enviroment varialbe in virtual env called DATABASE_URL
-
-
 
     #Gal: Lesson3 - would you like to add admin interface to you project?
 

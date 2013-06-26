@@ -34,7 +34,7 @@ install compass using ruby and rubygems
 ```./install-compass ```
 
 
-## oreder of scripts to run
+## Order of scripts to run
 
 1. install-prerequisites.sh (run only once)
 2. create_postgres_user.sh (run only once)
