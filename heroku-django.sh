@@ -104,6 +104,11 @@ main(){
 	git init
 	git add .
 	git commit -m "init django app"
+<<<<<<< HEAD
+=======
+	echo 'Creating requirments file'
+	pip freeze > requirements.txt
+>>>>>>> 77e7998ea5b31c3e044259414c834c0c7b50f6c7
 	
 	echo 'creating heroku app'
 	heroku create
