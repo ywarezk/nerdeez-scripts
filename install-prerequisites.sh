@@ -31,7 +31,9 @@ main(){
 	#install compass
 	sudo gem update --system
 	sudo gem install compass
-	
+
+	#install curl
+	sudo apt-get install curl
 }
 
 main $*

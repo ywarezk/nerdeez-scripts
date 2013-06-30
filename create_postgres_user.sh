@@ -14,6 +14,8 @@ main() {
 	local postgres_password=$2
 	echo "Creating postgres user ${postgres_username}"
 	echo "CREATE USER ${postgres_username} WITH PASSWORD '${postgres_password}';" | sudo -u postgres psql 
+	# add createdb permission to this user, necessary for allowing creating test database (TDD).
+	echo "ALTER USER ${postgres_username} CREATEDB;" | sudo -u postgres psql 
 }
 
 main $*

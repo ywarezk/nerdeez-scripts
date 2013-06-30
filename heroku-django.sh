@@ -104,8 +104,6 @@ main(){
 	git init
 	git add .
 	git commit -m "init django app"
-	echo 'Creating requirments file'
-	pip freeze > requirments.txt
 	
 	echo 'creating heroku app'
 	heroku create
@@ -140,19 +138,18 @@ main(){
     	install_south $project_name_untouched
 	install_tastypie $project_name_untouched
     
-    #Gal: Lesson2 - create enviroment varialbe in virtual env called DATABASE_URL
+    
+	#Gal: Lesson2 - would you like to add template dir to your project?
 
-    #Gal: Lesson3 - would you like to add admin interface to you project?
+	#Gal: Lesson3 - would you like to add admin interface to you project?
 
-    #Gal: Lesson3 - would you like to install south? + add south init
-
-    #Gal: Lesson4 - would you like to install tastypie?
-
+	# finally we create the requirments file
+	echo 'Creating requirments file'
+	pip freeze > requirments.txt
 }
 
 main $*
 
-#install_south $*
 
 
 
