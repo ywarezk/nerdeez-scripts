@@ -136,11 +136,40 @@ main(){
     	
     	install_south $project_name_untouched
 	install_tastypie $project_name_untouched
-    
-    
-	#Gal: Lesson2 - would you like to add template dir to your project?
+      
+	# add static and templates directories to the project app directory
+	mkdir ${project_name}_app/static
+	mkdir ${project_name}_app/templates
+	echo "import os.path" >> ${project_name}_app/settings.py
+	echo "TEMPLATE_DIRS = TEMPLATE_DIRS + (os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),)" >> ${project_name}_app/settings.py
 
-	#Gal: Lesson3 - would you like to add admin interface to you project?
+
+	# create fixtures directory (used for TDD)
+	read -p "Would you like to create a fixtures directory (used for TDD) (y/n)" answer
+	case $answer in  
+    		y|Y) 
+		mkdir ${project_name}_app/fixtures
+		touch ${project_name}_app/fixtures/${project_name}_app.json
+    	esac
+
+	# add admin interface to project
+	read -p "Would you like to create add admin interface to your project (y/n)" answer
+	case $answer in  
+    		y|Y) 
+
+		# editing the settings.py file
+	    	echo "INSTALLED_APPS = INSTALLED_APPS + ('django.contrib.admin','django.contrib.auth','django.contrib.contenttypes','django.contrib.sessions','django.contrib.messages','django.contrib.staticfiles',)" >> ${project_name}_app/settings.py
+
+	    	echo "MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + ('django.middleware.common.CommonMiddleware','django.contrib.sessions.middleware.SessionMiddleware','django.contrib.auth.middleware.AuthenticationMiddleware','django.contrib.messages.middleware.MessageMiddleware',)" >> ${project_name}_app/settings.py
+
+		# add the admin tables to our database
+		python manage.py syncdb
+		
+		# editing the urls.py file
+		echo "from django.contrib import admin" >> ${project_name}_app/urls.py
+		echo "admin.autodiscover()" >> ${project_name}_app/urls.py
+		echo "urlpatterns = urlpatterns + ((r'^admin/', include(admin.site.urls)),)" >> ${project_name}_app/urls.py
+    	esac
 
 	# finally we create the requirments file
 	echo 'Creating requirments file'
